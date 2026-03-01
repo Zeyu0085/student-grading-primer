@@ -42,9 +42,10 @@ def create_student():
     course = student_data.get("course")
     mark = student_data.get("mark")
 
-    if not name or not course or mark is None:
-        return jsonify({"error": "name, course, and mark are required"}), 404
-    
+    if not name or not course:
+        return jsonify({"error": "name and course are required"}), 404
+    if not mark:
+        mark = 0
     student_data = db.insert_student(name, course, mark)
     return jsonify(student_data), 200
 
